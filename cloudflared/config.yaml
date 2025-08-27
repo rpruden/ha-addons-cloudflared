@@ -1,7 +1,7 @@
 name: Cloudflared
 version: 5.3.8
 breaking_versions:
-  - 5.3.7
+- 5.3.7
 slug: cloudflared
 description: Use a Cloudflare Tunnel to remotely connect to Home Assistant without
   opening any ports
@@ -11,43 +11,32 @@ startup: services
 init: false
 hassio_api: true
 arch:
-  - aarch64
-  - amd64
-  - armv7
+- aarch64
+- amd64
+- armv7
 map:
-  - addon_config:rw
-  - homeassistant_config
+- addon_config:rw
+- homeassistant_config
 options:
   external_hostname: ''
   additional_hosts: []
   use_builtin_proxy: true
-  tunnel_name: ''
-  catch_all_service: ''
-  nginx_proxy_manager: false
-  tunnel_token: ''
-  post_quantum: false
-  run_parameters:
-    - --loglevel=info
-    - --proxy-dns
-    - --upstream=https://dns.quad9.net/dns-query
-    - --port=5056
-  log_level: info
 ports:
   36500/tcp: null
   5056/tcp: null
 schema:
   external_hostname: str?
   additional_hosts:
-    - hostname: str
-      service: str
-      disableChunkedEncoding: bool?
+  - hostname: str
+    service: str
+    disableChunkedEncoding: bool?
   tunnel_name: str?
   catch_all_service: str?
   nginx_proxy_manager: bool?
   use_builtin_proxy: bool?
   tunnel_token: str?
   post_quantum: bool?
-#  run_parameters:
-#    - match(^(--edge-bind-address|--edge-ip-version|--grace-period|--ha-connections|--logfile|--loglevel|--pidfile|--protocol|--region|--retries|--tag|--proxy-dns|--upstream|--port)=.*$)?
+  run_parameters:
+  - match(^(--edge-bind-address|--edge-ip-version|--grace-period|--ha-connections|--logfile|--loglevel|--pidfile|--protocol|--region|--retries|--tag)=.*$)?
   log_level: list(trace|debug|info|notice|warning|error|fatal)?
 image: ghcr.io/brenner-tobias/cloudflared/{arch}

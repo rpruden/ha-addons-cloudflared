@@ -3,10 +3,9 @@ version: 5.3.8
 breaking_versions:
 - 5.3.7
 slug: cloudflared
-description: Use a Cloudflare Tunnel to remotely connect to Home Assistant without
-  opening any ports
-url: https://github.com/brenner-tobias/addon-cloudflared/
-codenotary: dev@brenner.tech
+description: Use Cloudflare’s DNS-over-HTTPS (DoH) service to forward DNS queries.
+url: https://github.com/rpruden/ha-addons-cloudflared/
+codenotary: dev@rpruden.tech
 startup: services
 init: false
 hassio_api: true
@@ -18,25 +17,19 @@ map:
 - addon_config:rw
 - homeassistant_config
 options:
-  external_hostname: ''
-  additional_hosts: []
+  # Enable the DNS-over-HTTPS (DoH) proxy mode
   use_builtin_proxy: true
+  # List of upstream DNS servers to use via DoH
+  upstream_dns_servers:
+    - https://1.1.1.1/dns-query  # Cloudflare DoH
+    - https://1.0.0.1/dns-query  # Cloudflare secondary DoH
+  # Port to listen on for DNS requests
+  listen_port: 5053
 ports:
-  36500/tcp: null
-  5056/tcp: null
+  5053/tcp: null
 schema:
-  external_hostname: str?
-  additional_hosts:
-  - hostname: str
-    service: str
-    disableChunkedEncoding: bool?
-  tunnel_name: str?
-  catch_all_service: str?
-  nginx_proxy_manager: bool?
   use_builtin_proxy: bool?
-  tunnel_token: str?
-  post_quantum: bool?
-  run_parameters:
-  - match(^(--edge-bind-address|--edge-ip-version|--grace-period|--ha-connections|--logfile|--loglevel|--pidfile|--protocol|--region|--retries|--tag)=.*$)?
-  log_level: list(trace|debug|info|notice|warning|error|fatal)?
-image: ghcr.io/brenner-tobias/cloudflared/{arch}
+  upstream_dns_servers:
+    - str
+  listen_port: int?
+image: ghcr.io/rpruden/cloudflared/{arch}

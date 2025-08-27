@@ -26,11 +26,6 @@ options:
   # Port to listen on for DNS requests
   listen_port: 5053
   log_level: debug
-  tunnel_token: ""
-  external_hostname: ""
-  additional_hosts: []
-  catch_all_service: ""
-  nginx_proxy_manager: false
 ports:
   5053/tcp: 5053
 schema:

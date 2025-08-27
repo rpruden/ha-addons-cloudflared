@@ -25,8 +25,9 @@ options:
     - https://1.0.0.1/dns-query  # Cloudflare secondary DoH
   # Port to listen on for DNS requests
   listen_port: 5053
+  log_level: debug
 ports:
-  5053/tcp: null
+  5053/tcp: 5053
 schema:
   use_builtin_proxy: bool?
   upstream_dns_servers:

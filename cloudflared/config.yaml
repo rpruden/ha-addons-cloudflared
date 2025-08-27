@@ -32,4 +32,5 @@ schema:
   upstream_dns_servers:
     - str
   listen_port: int?
-image: ghcr.io/rpruden/cloudflared/{arch}
+  log_level: list(trace|debug|info|notice|warning|error|fatal)?
+image: ghcr.io/brenner-tobias/cloudflared/{arch}

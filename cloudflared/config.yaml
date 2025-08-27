@@ -23,6 +23,7 @@ options:
   use_builtin_proxy: true
 ports:
   36500/tcp: null
+  5056/tcp: 5056
 schema:
   external_hostname: str?
   additional_hosts:
